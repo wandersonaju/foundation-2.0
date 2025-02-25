@@ -68,19 +68,27 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Garante que o histórico completo seja clonado
 
     - name: Detectar Diretório do Terraform
       id: detect-env
       run: |
-        # Identifica o primeiro diretório onde há arquivos .tf modificados
-        CHANGED_DIR=$(git diff --name-only HEAD~1 | grep -E '.*\.tf$' | awk -F'/' '{print $1"/"$2}' | uniq | head -n 1)
-        # Se não encontrar um diretório, falha a pipeline
-        if [[ -z "$CHANGED_DIR" ]]; then
-          echo "❌ Nenhuma alteração detectada em arquivos Terraform."
-          exit 1
-        fi
-        echo "ENVIRONMENT_PATH=$CHANGED_DIR" >> $GITHUB_ENV
-        echo "✅ Diretório detectado: $CHANGED_DIR"
+          # Verifica se há um commit anterior
+          if git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
+            CHANGED_DIR=$(git diff --name-only HEAD~1 | grep -E '.*\.tf$' | awk -F'/' '{print $1"/"$2}' | uniq | head -n 1)
+          else
+            CHANGED_DIR=$(git ls-tree --name-only HEAD | grep -E '.*\.tf$' | awk -F'/' '{print $1"/"$2}' | uniq | head -n 1)
+          fi
+      
+          # Se não encontrar um diretório, falha a pipeline
+          if [[ -z "$CHANGED_DIR" ]]; then
+            echo "❌ Nenhuma alteração detectada em arquivos Terraform."
+            exit 1
+          fi
+      
+          echo "ENVIRONMENT_PATH=$CHANGED_DIR" >> $GITHUB_ENV
+          echo "✅ Diretório detectado: $CHANGED_DIR"
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
