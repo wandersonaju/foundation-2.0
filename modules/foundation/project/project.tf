@@ -9,4 +9,6 @@ resource "google_project" "projects" {
 resource "google_project_service" "project" {
   project  = var.project_id
   service  = var.services_api
+
+depends_on = [google_project.projects]
 }
