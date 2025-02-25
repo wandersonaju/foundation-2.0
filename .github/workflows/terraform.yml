@@ -69,6 +69,19 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Detectar Diretório do Terraform
+      id: detect-env
+      run: |
+        # Identifica o primeiro diretório onde há arquivos .tf modificados
+        CHANGED_DIR=$(git diff --name-only HEAD~1 | grep -E '.*\.tf$' | awk -F'/' '{print $1"/"$2}' | uniq | head -n 1)
+        # Se não encontrar um diretório, falha a pipeline
+        if [[ -z "$CHANGED_DIR" ]]; then
+          echo "❌ Nenhuma alteração detectada em arquivos Terraform."
+          exit 1
+        fi
+        echo "ENVIRONMENT_PATH=$CHANGED_DIR" >> $GITHUB_ENV
+        echo "✅ Diretório detectado: $CHANGED_DIR"
+
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -77,24 +90,19 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform -chdir=environment/dev init
+      run: terraform -chdir=${{ env.ENVIRONMENT_PATH }} init
       env: 
-        GOOGLE_CREDENTIALS:  ${{  secrets.GOOGLE_CREDENTIALS  }}
-
-    # Checks that all Terraform configuration files adhere to a canonical format
-    #- name: Terraform Format
-    #  run: terraform -chdir=environment/dev fmt -check
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform -chdir=environment/dev plan -input=false
+      run: terraform -chdir=${{ env.ENVIRONMENT_PATH }} plan -input=false
       env: 
-        GOOGLE_CREDENTIALS:  ${{  secrets.GOOGLE_CREDENTIALS  }}
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform -chdir=environment/dev apply -auto-approve -input=false
+      run: terraform -chdir=${{ env.ENVIRONMENT_PATH }} apply -auto-approve -input=false
       env: 
-        GOOGLE_CREDENTIALS:  ${{  secrets.GOOGLE_CREDENTIALS  }}
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
