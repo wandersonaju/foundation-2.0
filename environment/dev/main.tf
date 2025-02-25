@@ -18,7 +18,7 @@ module "subfolders" {
     { name = "Security", parent = module.folders.folder_ids["Foundation"] }
   ]
 
-  depends_on = [module.folders]
+  #depends_on = [module.folders]
 }
 
 
