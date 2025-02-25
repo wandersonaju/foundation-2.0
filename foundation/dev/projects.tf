@@ -1,4 +1,4 @@
-module "projects_dev" {
+module "projects_network" {
   source          = "../../modules/foundation/project"
   organization_id = var.organization_id
   billing_account = var.billing_account
