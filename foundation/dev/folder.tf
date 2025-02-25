@@ -1,5 +1,5 @@
 module "folders" {
-  source          = "../../modules/project"
+  source          = "../../modules/foundation/folder"
   organization_id = var.organization_id
 
   folders = [
@@ -10,7 +10,7 @@ module "folders" {
 }
 
 module "subfolders" {
-  source          = "../../modules/project"
+  source          = "../../modules/foundation/folder"
   organization_id = var.organization_id
 
   folders = [
@@ -18,7 +18,5 @@ module "subfolders" {
     { name = "Security", parent = module.folders.folder_ids["Foundation"] }
   ]
 
-  #depends_on = [module.folders]
+  depends_on = [module.folders]
 }
-
-
