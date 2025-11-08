@@ -35,7 +35,7 @@ jobs:
       uses: 'google-github-actions/auth@v3'
       with:
         service_account: 'build-github-action@losandes-lab.iam.gserviceaccount.com'
-        workload_identity_provider: 'projects/666813766090/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-oidc'
+        workload_identity_provider: 'projects/666813766090/locations/global/workloadIdentityPools/github-pool/providers/github-oidc'
 
     - name: Test GCP Authentication
       run: |
