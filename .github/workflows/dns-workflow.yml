@@ -1,0 +1,44 @@
+name: 'dns_wkflw'
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+  workflow_dispatch:
+  
+permissions:
+  contents: read
+  id-token: 'write'
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    environment: production
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    # Install the latest version of Terraform CLI
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+    
+    #
+    - name: Authenticate to Google Cloud 
+      uses: 'google-github-actions/auth@v3'
+      with:
+        service_account: 'build-github-action@losandes-lab.iam.gserviceaccount.com'
+        workload_identity_provider: 'projects/666813766090/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-oidc'
+
+    - name: Test GCP Authentication
+      run: |
+        gcloud auth list
+        gcloud projects list --limit=1
+        echo "✅ Autenticação GCP OK"   
