@@ -1,6 +1,6 @@
-# terraform {
-#   backend "gcs" {
-#     bucket = ""
-#     prefix = "prod"
-#   }
-# }
+terraform {
+  backend "gcs" {
+    bucket = "losandes-terraform-state"
+    prefix = "prod"
+  }
+}
