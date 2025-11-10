@@ -16,7 +16,7 @@ module "caldo-de-cana" {
   dns_name  = "caldo.pastel.com.br."
   dns_records = {
 
-    "blog" = { name = "blog.caldo.pastel.com.br.", records = ["203.0.113.10"], ttl = 300, type = "A" }
+    "blog" = { name = "blog.caldo.pastel.com.br.", records = ["203.0.113.12"], ttl = 300, type = "A" }
     "shop" = { name = "shop.caldo.pastel.com.br.", records = ["203.0.113.11"], ttl = 300, type = "A" }
 
   }
