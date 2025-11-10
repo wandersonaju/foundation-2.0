@@ -19,3 +19,8 @@ variable "dns_records" {
 
 }
 
+variable "main_domain" {
+  description = "The main domain to which this subdomain belongs."
+  type        = string
+  default     = ""
+}
