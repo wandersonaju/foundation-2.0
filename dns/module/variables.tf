@@ -9,12 +9,13 @@ variable "dns_name" {
 }
 
 variable "dns_records" {
-    description = "A list containing DNS record set attributes." 
-    type = map(object({
-        name    = string
-        type    = string
-        ttl     = number
-        records = list(string)
-    }))
+  description = "A list containing DNS record set attributes."
+  type = map(object({
+    name    = string
+    type    = string
+    ttl     = number
+    records = list(string)
+  }))
 
-}   
+}
+
