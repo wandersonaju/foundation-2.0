@@ -1,4 +1,9 @@
-# output "dns_zone" {
-#   description = "Lista dos registros DNS criados"
-#   value       = google_dns_managed_zone.prod.name_servers
-# }
+output "zone_name" {
+  description = "Lista dos registros DNS criados"
+  value       = google_dns_managed_zone.prod.name
+}
+
+output "dns_zone" {
+  description = "Lista dos registros DNS criados"
+  value       = google_dns_managed_zone.prod.name_servers
+}
