@@ -57,8 +57,9 @@ jobs:
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       if: >
-        github.event_name == 'pull_request' &&
+        (github.event_name == 'pull_request' &&
         github.event.action == 'closed' &&
         github.event.pull_request.merged == true &&
-        github.event.pull_request.base.ref == 'main'
+        github.event.pull_request.base.ref == 'main') ||
+        github.event_name == 'workflow_dispatch'
       run: terraform -chdir=dns/domain apply -auto-approve -input=false
