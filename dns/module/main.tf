@@ -1,5 +1,4 @@
 data "google_dns_managed_zone" "parent" {
-  count = var.dns_name == "pastel.com.br" ? 1 : 0
   name = "pastel-com-br"
 
 depends_on = [google_dns_managed_zone.prod]
@@ -19,8 +18,7 @@ resource "google_dns_managed_zone" "prod" {
   dns_name = var.dns_name
 }
 
-resource "google_dns_record_set" "delegate_in_parent" {
-  count        = data.google_dns_managed_zone.parent.name != "" ? 1 : 0 
+resource "google_dns_record_set" "delegate_in_parent" { 
   managed_zone = data.google_dns_managed_zone.parent.name
   name         = google_dns_managed_zone.prod.dns_name
   type         = "NS"
