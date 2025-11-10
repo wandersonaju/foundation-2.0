@@ -1,9 +1,9 @@
-# output "dns_zone" {
+# output "main_zone_name" {
 #   description = "Registros DNS do domínio principal"
-#   value       = module.dominio_principal.dns_zone
+#   value       = module.main_domain.zone_name
 # }
 
-# output "dns_zone_secundario" {
+# output "main_dns_zone" {
 #   description = "Registros DNS do domínio principal"
-#   value       = module.pastel.dns_zone
+#   value       = module.main_domain.dns_zone
 # }
