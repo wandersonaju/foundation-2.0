@@ -33,3 +33,15 @@ module "camarao" {
     "www"  = { name = "www.camarao.pastel.com.br.", records = ["203.0.113.11"], ttl = 300, type = "A" }
   }
 }
+
+module "cocacola" {
+  source    = "../module"
+  zone_name = "cocacola-pastel-com-br"
+  dns_name  = "cocacola.pastel.com.br."
+  dns_records = {
+
+    "blog" = { name = "blog.cocacola.pastel.com.br.", records = ["203.0.113.10"], ttl = 300, type = "A" }
+    "shop" = { name = "shop.cocacola.pastel.com.br.", records = ["203.0.113.11"], ttl = 300, type = "A" }
+    "www"  = { name = "www.cocacola.pastel.com.br.", records = ["203.0.113.11"], ttl = 300, type = "A" }
+  }
+}
