@@ -1,9 +1,3 @@
-data "google_dns_managed_zone" "parent" {
-  name = "pastel-com-br"
-
-depends_on = [google_dns_managed_zone.prod]
-}
-
 resource "google_dns_record_set" "a" {
   for_each     = var.dns_records
   name         = each.value.name
@@ -19,7 +13,8 @@ resource "google_dns_managed_zone" "prod" {
 }
 
 resource "google_dns_record_set" "delegate_in_parent" { 
-  managed_zone = data.google_dns_managed_zone.parent.name
+  count        =  length(var.main_domain) > 0 ? 1 : 0
+  managed_zone = var.main_domain
   name         = google_dns_managed_zone.prod.dns_name
   type         = "NS"
   ttl          = 300
