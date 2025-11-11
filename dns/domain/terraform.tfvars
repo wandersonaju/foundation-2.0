@@ -26,6 +26,7 @@ partner_subzones = {
     dns_records = {
       "caldo" = { name = "caldo.barraca.com.br.", records = ["203.0.113.10"], ttl = 300, type = "A" }
       "api"   = { name = "api.caldo.barraca.com.br.", records = ["203.0.113.11"], ttl = 300, type = "A" }
+      "gov"   = { name = "gov.caldo.barraca.com.br.", records = ["203.0.113.11"], ttl = 300, type = "A" }
     }
   },
   "camarao" = {
