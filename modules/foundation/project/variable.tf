@@ -10,3 +10,10 @@ variable "folder" {}
 #     folder  = string
 #   }))
 # }
+
+variable "folders" {
+  type      = list(object({
+    name    = string
+    parent  = string
+  }))
+}

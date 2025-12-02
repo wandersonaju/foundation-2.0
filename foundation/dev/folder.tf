@@ -4,8 +4,8 @@ module "folders" {
 
   folders = [
     # Criando os folders principais primeiro
-    { name = "Foundation", parent = "organizations/${var.organization_id}" },
-    { name = "Desenvolvimento", parent = "organizations/${var.organization_id}" }
+    { name = "shared", parent = "organizations/${var.organization_id}" },
+    { name = "desenvolvimento", parent = "organizations/${var.organization_id}" }
   ]
 }
 
@@ -14,8 +14,8 @@ module "subfolders" {
   organization_id = var.organization_id
 
   folders = [
-    { name = "Network", parent = module.folders.folder_ids["Foundation"] },
-    { name = "Security", parent = module.folders.folder_ids["Foundation"] }
+    { name = "network", parent = module.folders.folder_ids["shared"] },
+    { name = "security", parent = module.folders.folder_ids["shared"] }
   ]
 
   depends_on = [module.folders]

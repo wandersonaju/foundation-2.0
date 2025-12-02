@@ -1,6 +1,6 @@
-terraform {
-  backend "gcs" {
-    bucket = "terraform-state-cicd-project"
-    prefix = "prod"
-  }
-}
+# terraform {
+#   backend "gcs" {
+#     bucket = "terraform-state-cicd-project-dev"
+#     prefix = "prod"
+#   }
+# }

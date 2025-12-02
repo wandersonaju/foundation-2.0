@@ -2,9 +2,9 @@ module "projects_network" {
   source          = "../../modules/foundation/project"
   organization_id = var.organization_id
   billing_account = var.billing_account
-  name            = "wfslab-network-dev"
-  project_id      = "wfslab-network-dev"
-  folder          = 1098604734150
+  name            = "lablos-network-dev"
+  project_id      = "lablos-network-dev"
+  folder          = module.subfolders.folder_ids["network"]
   services_api    = "compute.googleapis.com"
 }
 
@@ -12,8 +12,8 @@ module "projects_dev" {
   source          = "../../modules/foundation/project"
   organization_id = var.organization_id
   billing_account = var.billing_account
-  name            = "wfslab-dev"
-  project_id      = "wfslab-dev"
-  folder          = 984690173317
+  name            = "lablos-dev"
+  project_id      = "lablos-dev"
+  folder          = module.folders.folder_ids["desenvolvimento"]
   services_api    = "compute.googleapis.com"
 }
