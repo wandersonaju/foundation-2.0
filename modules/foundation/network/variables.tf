@@ -1,39 +1,3 @@
-variable "organization_id" {
-  description = "O ID da organização no Google Cloud"
-  type        = string
-}
-
-variable "billing_account" {
-  description = "O ID da billing_account no Google Cloud"
-  type        = string
-}
-
-variable "folders" {
-  type        = map(string)
-  description = "Map of folders: key = folder name, value = parent"
-  default     = {}
-}
-
-variable "project_id" {
-  description = "The ID of the GCP project"
-  type        = string
-}
-
-variable "region" {
-  description = "The GCP region"
-  type        = string
-}
-
-variable "projects" {
-  description = "A list of projects to create"
-  type = list(object({
-    project_id = string
-    folder     = string
-    enable_api = list(string)
-  }))
-  default = []
-}
-
 variable "vpcs" {
   description = "A map of VPCs to create"
   type = map(object({
@@ -50,16 +14,6 @@ variable "vpcs" {
     }))
   }))
   default = {}
-}
-
-variable "policies" {
-  description = "List of organization policies to create"
-  type = list(object({
-    policy_name = string
-    parent      = string
-    enforce     = optional(string, "TRUE")
-  }))
-  default = []
 }
 
 variable "host_project" {

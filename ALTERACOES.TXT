@@ -1,0 +1,1 @@
+desabilitar rede default ao habilitar a api do GCE
