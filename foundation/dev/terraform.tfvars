@@ -74,7 +74,7 @@ vpcs = {
     }
   }
   "lablos-vpc-dev-2" = {
-    project_name = "lablos-development-network"
+    project_name = "lablos-development-networks"
     vpc_name     = "lablos-vpc-dev-2"
     subnets = {
       "lablos-subnet-us-central1-dev" = {
