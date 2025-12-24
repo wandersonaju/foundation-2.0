@@ -1,0 +1,41 @@
+name: terraform_apply
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  terraform_apply:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    environment: production
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          service_account: ${{ vars.SERVICE_ACCOUNT_ID }}
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_ID }}
+          create_credentials_file: true
+          export_environment_variables: true
+
+      - name: Terraform Init
+        run: terraform -chdir=foundation/dev init
+
+      - name: Terraform Apply
+        run: terraform -chdir=foundation/dev apply -auto-approve -input=false
