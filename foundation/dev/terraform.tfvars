@@ -79,7 +79,7 @@ vpcs = {
     subnets = {
       "lablos-subnet-us-central1-dev" = {
         subnet_name   = "lablos-subnet-us-central1-dev"
-        subnet_cidr   = "172.30.0.0/24"
+        subnet_cidr   = "172.30.0.0/22"
         subnet_region = "us-central1"
       }
     }
