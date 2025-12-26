@@ -73,16 +73,16 @@ vpcs = {
       }
       "lablos-subnet-us-west1-dev" = {
         subnet_name   = "lablos-subnet-us-west1-dev"
-        subnet_cidr   = "172.16.0.0/25"
+        subnet_cidr   = "172.20.0.0/25"
         subnet_region = "us-west1"
         secondary_ip_ranges = [
           {
             range_name    = "pods"
-            ip_cidr_range = "10.0.0.0/24"
+            ip_cidr_range = "10.5.0.0/24"
           },
           {
             range_name    = "services"
-            ip_cidr_range = "10.0.1.0/24"
+            ip_cidr_range = "10.5.1.0/24"
           }
         ]
       }
